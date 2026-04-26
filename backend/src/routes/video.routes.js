@@ -1,9 +1,7 @@
-const express = require("express");
-const router = express.Router();
+import { Router } from "express";
+import { analyzeVideo } from "../controllers/video.controller.js";
+const router = Router();
 
+router.post("/analyze", analyzeVideo);
 
-const videoController = require("../controllers/video.controller");
-
-router.post("/analyze", videoController.analyzeVideo);
-
-module.exports = router;
+export default router;

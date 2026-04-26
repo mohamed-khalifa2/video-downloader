@@ -1,10 +1,10 @@
-const videoService = require("../services/video.services");
+import analyze from "../services/video.services.js";
 
-exports.analyzeVideo = async (req, res) => {
+export const analyzeVideo = async (req, res) => {
   const { url } = req.body;
 
   try {
-    const result = await videoService.analyze(url);
+    const result = await analyze(url);
     res.json(result);
   } catch (err) {
     res.status(500).json({ error: err.message });

@@ -1,9 +1,10 @@
-const ytDownloader = require("yt-dlp-exec");
+import ytDownloader from "yt-dlp-exec";
+import plimit from "p-limit";
+const limit = plimit(3);
 
 
-exports.analyze = async(url) => {
-
-    const info = await ytDownloader(url, {
+const handleSingleVideo = async (url) => {
+  const info = await ytDownloader(url, {
       dumpSingleJson: true
     });
 
@@ -15,9 +16,41 @@ exports.analyze = async(url) => {
       }));
 
       return {
-      type: info.extractor,
       title: info.title,
       formats
     };
+}
+
+const isYouTubePlaylist = (url) => {
+  return url.includes("list=");
 };
+
+const analyze = async (url) => {
+
+  if (isYouTubePlaylist(url)) {
+    const info = await ytDownloader(url, {
+    dumpSingleJson: true,
+    flatPlaylist: true
+  });
+
+  const videos = await Promise.all(
+  info.entries.map(video => limit(()=>handleSingleVideo(`https://www.youtube.com/watch?v=${video.id}`))
+  )
+  );
+
+  return {
+    type: "playlist",
+    title: info.title,
+    videos: videos
+  };
+  };
+
+  return {
+    type: "single",
+    ...(await handleSingleVideo(url))
+  };
+
+}
+
+export default analyze;
 
