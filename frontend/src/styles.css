@@ -1,1 +1,30 @@
-/* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
+
+@theme {
+  --color-dark: #0f172a;
+  --color-cyan: #06b6d4;
+  --color-cyan-light: #22d3ee;
+  --color-dark-secondary: #1E293B;
+  --color-dark-tertiary: #334155;
+  
+}
+
+@layer base {
+  body {
+    @apply bg-dark text-gray-50 font-sans;
+  }
+
+  h1, h2, h3 {
+    @apply font-semibold;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply px-6 py-3 bg-cyan text-black font-semibold rounded-lg hover:bg-cyan-light transition-colors duration-200;
+  }
+
+  .btn-secondary {
+    @apply px-6 py-3 border border-gray-600 text-gray-50 rounded-lg hover:border-gray-400 transition-colors duration-200;
+  }
+}

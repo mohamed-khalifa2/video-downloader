@@ -17,6 +17,7 @@ const handleSingleVideo = async (url) => {
 
       return {
       title: info.title,
+      thumbnail: info.thumbnail,
       formats
     };
 }
@@ -24,6 +25,8 @@ const handleSingleVideo = async (url) => {
 const isYouTubePlaylist = (url) => {
   return url.includes("list=");
 };
+
+
 
 const analyze = async (url) => {
 
