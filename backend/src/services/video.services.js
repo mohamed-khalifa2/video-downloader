@@ -4,26 +4,37 @@ import ffmpegPath from 'ffmpeg-static';
 
 ffmpeg.setFfmpegPath(ffmpegPath);
 
-const getBestAudio = (formats) => formats
-    .filter(f => f.vcodec === 'none' && f.acodec !== 'none' &&f.ext ==='m4a')
-    .sort((a, b) => (b.abr || 0) - (a.abr || 0))[0]
+const getBestAudio = (formats) =>
+  formats
+  .filter(f => f.vcodec === 'none' && f.acodec !== 'none' &&f.ext ==='m4a')
+  .sort((a, b) => (b.abr || 0) - (a.abr || 0))[0]
+  
 
 
 export const analyze = async (url, page = 1, limit = 10) => {
   const start = (page - 1) * limit + 1;
   const end = page * limit;
 
+  //Get total count
+  const meta = await ytdlp(url, {
+    dumpSingleJson: true,
+    flatPlaylist: true
+  });
+
+  const totalItems = meta.entries ? meta.entries.length : 1;
+  const totalPages = Math.ceil(totalItems / limit);
+
+  // Get paginated data
   const info = await ytdlp(url, {
     dumpSingleJson: true,
     playlistItems: `${start}-${end}`
   });
 
-  
   const entries = info.entries ? info.entries : [info];
-  
 
   const result = entries.map(entry => {
-    const formats = entry.formats.filter(f =>
+    const formats = entry.formats
+      .filter(f =>
         f.vcodec !== 'none' &&
         f.acodec === 'none' &&
         f.ext === 'mp4' &&
@@ -37,18 +48,20 @@ export const analyze = async (url, page = 1, limit = 10) => {
 
     return {
       title: entry.title,
-      videoUrl: entry.webpage_url, 
+      videoUrl: entry.webpage_url,
       formats
     };
   });
 
   return {
-    title: info.title, 
+    title: info.title,
     page,
-    count: result.length,
+    totalItems,   
+    totalPages, 
     items: result
   };
 };
+
 
 export const download = async (url, formatId, res) => {
 
