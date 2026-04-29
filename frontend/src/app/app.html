@@ -12,22 +12,19 @@
             </svg>
           </div>
           <input
+            #urlInput
             type="text"
             placeholder="https://www.youtube.com/watch?v=..."
             class="flex-1 bg-transparent outline-none text-gray-300 placeholder-gray-500 text-sm"
           />
-          <button (click)="loadingService.toggle()" class="btn-primary whitespace-nowrap text-sm">Analyze</button>
+          <button (click)="handleAnalyze(urlInput.value)" class="btn-primary whitespace-nowrap text-sm">Analyze</button>
         </div>
 
+        <div class="loader-container w-full h-30">
         @if (loadingService.isLoading()) {
-          <div class="loader-container">
           <app-loading></app-loading>
-        </div>
         }
-
-        
-        
-
+      </div>
       </div>
     </section>
 
