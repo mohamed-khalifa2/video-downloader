@@ -19,8 +19,8 @@ export class VideoService {
 
   download(url:string, formatId:string):Observable<any>{
      let params = new HttpParams()
-      .set('videoUrl', url)
-      .set('format_id', formatId)
+      .set('url', url)
+      .set('formatId', formatId)
 
         return this.http.get(`${this.baseUrl}/download`, {
         params,
