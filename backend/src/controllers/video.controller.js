@@ -14,5 +14,5 @@ export const analyzeVideo =  asyncHandler(async (req, res) => {
 export const downloadVideo = asyncHandler(async (req, res) => {
     const { url, formatId } = req.query;
     if (!url || !formatId) throw new AppError('Missing params', 400)
-    await download(url, formatId, res);
+    await download(url, formatId, req, res);
 });
