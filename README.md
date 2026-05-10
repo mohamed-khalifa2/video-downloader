@@ -31,7 +31,7 @@ A modern, fast video downloader web app powered by **yt-dlp** — supports singl
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 | Layer             | Technology        |
 | ----------------- | ----------------- |
@@ -91,7 +91,7 @@ Open [http://localhost:4200](http://localhost:4200) in your browser.
 
 ---
 
-## 📖 Usage
+## Usage
 
 ### Download a Single Video
 
