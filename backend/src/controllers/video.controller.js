@@ -1,18 +1,18 @@
 import {analyze, download} from "../services/video.services.js";
-import { asyncHandler } from "../utils/asyncHandler.js";
 import AppError from '../utils/appError.js'
 
-// GET /api/video/analyze?url=youtube...
-export const analyzeVideo =  asyncHandler(async (req, res) => {
-    const { url , page } = req.query;
+//no need for async handler, as express 5 automatically awaits promises and forwards errors to the error handler
+export const analyzeVideo =  async (req, res) => {
+    const { url} = req.query;
     if (!url) throw new AppError('URL is required', 400);
-    const result = await analyze(url, page);
+    const result = await analyze(url);
     res.json(result);
-});
+};
 
 
-export const downloadVideo = asyncHandler(async (req, res) => {
+export const downloadVideo = async (req, res) => {
     const { url, formatId } = req.query;
     if (!url || !formatId) throw new AppError('Missing params', 400)
     await download(url, formatId, req, res);
-});
+};
+

@@ -8,7 +8,9 @@ const app = express();
 
 app.use(cors());
 app.use(json());
+
 app.use("/api/video", videoRoutes);
-app.use(errorHandler);
+
+app.use(errorHandler); //Must be in the end
 
 export default app;
