@@ -1,6 +1,6 @@
 # Video Downloader
 
-A modern, fast video downloader web app powered by **yt-dlp** — supports single videos and full playlists with quality selection up to 4K.
+A modern, fast video downloader web app powered by **yt-dlp**, supports single videos and full playlists with quality selection up to 4K.
 
 ![Hero Screenshot](screenshots/hero.png)
 
@@ -33,13 +33,13 @@ A modern, fast video downloader web app powered by **yt-dlp** — supports singl
 
 ## Tech Stack
 
-| Layer             | Technology        |
-| ----------------- | ----------------- |
-| Frontend          | Angular 21        |
-| Styling           | Tailwind CSS      |
-| Icons             | Font Awesome      |
-| Backend           | Node.js           |
-| Downloader Engine | yt-dlp and FFmpeg |
+| Layer             | Technology          |
+| ----------------- | ------------------- |
+| Frontend          | Angular 21          |
+| Styling           | Tailwind CSS        |
+| Icons             | Font Awesome        |
+| Backend           | Node.js and Express |
+| Downloader Engine | yt-dlp and FFmpeg   |
 
 ---
 
@@ -76,14 +76,14 @@ npm install
 **4. Start the backend**
 
 ```bash
-cd server
+cd backend
 npm run dev
 ```
 
 **5. Start the frontend**
 
 ```bash
-cd client
+cd frontend
 ng serve
 ```
 
